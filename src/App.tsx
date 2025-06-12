@@ -1,5 +1,5 @@
 import { MathJaxContext } from "better-react-mathjax"
-import { HomeView } from "./Components/Views/HomeView/HomeView"
+import { HomeView } from "./Views/HomeView/HomeView"
 
 
 function App() {

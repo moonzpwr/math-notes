@@ -1,9 +1,11 @@
 import { useGetNotebookData } from "@/hooks/useGetNotebookData";
-import { SectionItem } from "../../SectionItem/SectionItem";
+import { SectionItem } from "../../Components/SectionItem/SectionItem";
 import { DataState } from "@/enums/DataState";
 import { LoadingSpinner } from "@/Components/LoadingSpinner/LoadingSpinner";
 import styles from './NotebookView.module.css';
 import { useEffect, useRef, useState } from "react";
+import type { INotebookData } from "@/interfaces/INotebookData";
+import { getAllHeaders } from "@/helpers/getAllheaders";
 
 
 export const NotebookView: React.FC = () => {
@@ -25,15 +27,12 @@ export const NotebookView: React.FC = () => {
                 entries.forEach((entry) => {
                     const id = entry.target.getAttribute('data-id');
                     if (!id) return;
-                    console.log('entry', entry);
 
                     if (entry.boundingClientRect.top <= 0) {
-                        console.log('add');
                         setActiveHeaders((prev) =>
                             prev.includes(id) ? prev : [...prev, id]
                         );
                     } else if (entry.boundingClientRect.top > 0) {
-                        console.log('remove');
                         setActiveHeaders((prev) => prev.filter((hid) => hid !== id));
                     }
                 });
@@ -44,7 +43,10 @@ export const NotebookView: React.FC = () => {
             }
         );
 
-        data?.data.forEach((section) => {
+        const headers = getAllHeaders(data?.data || [])
+
+        headers.forEach((section) => {
+            if (!section.id) return;
             const el = headersRef.current[section.id];
             if (el) observer.observe(el);
         });
@@ -90,3 +92,4 @@ export const NotebookView: React.FC = () => {
         </div>
     );
 }
+
