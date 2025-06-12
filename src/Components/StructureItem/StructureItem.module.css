@@ -1,0 +1,25 @@
+.itemContainer {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.rootItemContainer {
+    width: 300px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: large;
+    font-weight: 600;
+    transition: all 500ms ease;
+    height: 40px;
+}
+
+.expanded {
+    padding-left: 40px
+}
+
+.itemContent {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

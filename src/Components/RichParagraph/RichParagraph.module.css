@@ -1,0 +1,10 @@
+.container {
+    padding: 20px 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.container p,
+.container span {
+    font-size: 20px;
+}
