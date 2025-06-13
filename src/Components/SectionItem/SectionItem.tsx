@@ -8,10 +8,11 @@ interface Props {
     data: INotebookData[];
     id: string;
     headersRef: React.MutableRefObject<Record<string, HTMLDivElement | null>>;
+    idPath: string[];
 }
 
 
-export const SectionItem: React.FC<Props> = ({ title, data, id, headersRef }) => {
+export const SectionItem: React.FC<Props> = ({ title, data, id, headersRef, idPath }) => {
     return (
         <div className={styles.container}>
             <div
@@ -20,20 +21,22 @@ export const SectionItem: React.FC<Props> = ({ title, data, id, headersRef }) =>
                     headersRef.current[id] = el;
                 }}
                 data-id={id}
+                data-id-path={idPath.length > 0 ? idPath.join('.') : null}
             >
                 {title}
             </div>
             <div>{data?.map((item, i) => {
                 if (item.type === StructureTypes.RichParagraph) {
-                    return <RichParagraph key={i} content={item.data[0]} />
+                    return <RichParagraph key={i} content={item.value} />
                 } else {
-                    return (
+                    return item.data && (
                         <SectionItem
                             key={item.id}
                             id={item.id}
                             headersRef={headersRef}
                             title={item.title}
                             data={item.data}
+                            idPath={item.idPath || []}
                         />)
                 }
 

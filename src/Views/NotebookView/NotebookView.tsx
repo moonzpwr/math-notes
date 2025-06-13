@@ -4,8 +4,7 @@ import { DataState } from "@/enums/DataState";
 import { LoadingSpinner } from "@/Components/LoadingSpinner/LoadingSpinner";
 import styles from './NotebookView.module.css';
 import { useEffect, useRef, useState } from "react";
-import type { INotebookData } from "@/interfaces/INotebookData";
-import { getAllHeaders } from "@/helpers/getAllheaders";
+import { getAllHeaders } from "@/helpers/getAllHeaders";
 
 
 export const NotebookView: React.FC = () => {
@@ -28,23 +27,25 @@ export const NotebookView: React.FC = () => {
                     const id = entry.target.getAttribute('data-id');
                     if (!id) return;
 
-                    if (entry.boundingClientRect.top <= 0) {
-                        setActiveHeaders((prev) =>
-                            prev.includes(id) ? prev : [...prev, id]
-                        );
-                    } else if (entry.boundingClientRect.top > 0) {
-                        setActiveHeaders((prev) => prev.filter((hid) => hid !== id));
+                    if (entry.boundingClientRect.top <= activeHeaders.length * 10) {
+                        const idPath = entry.target.getAttribute('data-id-path')?.split('.') || [];
+                        console.log(entry);
+                        setActiveHeaders([...idPath, id]);
+                    } else if (entry.boundingClientRect.top > activeHeaders.length * 43) {
+                        // const idPath = entry.target.getAttribute('data-id-path')?.split('.') || [];
+                        // console.log(entry);
+                        // setActiveHeaders((prev) => prev.filter((h) => h === id));
                     }
                 });
             },
             {
-                threshold: [0.1],
+                threshold: [1],
                 // rootMargin: '0px 0px -90% 0px',
             }
         );
 
         const headers = getAllHeaders(data?.data || [])
-
+        console.log('Headers:', headers);
         headers.forEach((section) => {
             if (!section.id) return;
             const el = headersRef.current[section.id];
@@ -56,7 +57,7 @@ export const NotebookView: React.FC = () => {
 
 
     return (
-        <div className={styles.container} style={{ paddingTop: `${activeHeaders.length * 43}px` }}>
+        <div className={styles.container}>
             {isLoading ? <div className={styles.spinnerContainer}><LoadingSpinner /></div> :
                 <>
                     <div style={{ position: 'fixed', top: 0, zIndex: 999, width: '100%', }}>
@@ -73,19 +74,21 @@ export const NotebookView: React.FC = () => {
                                     top: `${i * 40}px`,
                                     width: '100%',
                                 }}
+                                id={id}
                             >
-                                {data?.data.find((s) => s.id === id)?.title}
+                                {getAllHeaders(data?.data || []).find((s) => s.id === id)?.title}
                             </div>
                         ))}
                     </div>
                     <h1 style={{ textAlign: 'center' }} ref={titleRef}>{data?.title}</h1>
-                    {data?.data.map((item) => (
+                    {data?.data?.map((item) => item.data && (
                         <SectionItem
                             headersRef={headersRef}
                             key={item.id}
                             id={item.id}
                             title={item.title}
                             data={item.data}
+                            idPath={item.idPath || []}
                         />
                     ))}
                 </>}
