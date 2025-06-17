@@ -10,8 +10,9 @@ export const useGetNotebookData = (): IAsyncData<INotebookData> => {
     const { pathname } = useLocation()
     const [notebookData, setNotebookData] = useState<IAsyncData<INotebookData>>({ data: null, state: DataState.Idle, error: null });
 
+
     useEffect(() => {
-        const id = pathname.split('/').pop();
+        const id = pathname.split('/')[1];
         if (id) {
             setNotebookData({ data: null, state: DataState.Pending, error: null });
             fetch(`${BASE_URL}/index/${id}`).then((response) => {

@@ -4,5 +4,4 @@ export interface INotebookData {
     type: string;
     data?: INotebookData[];
     value?: string;
-    idPath?: string[];
 }

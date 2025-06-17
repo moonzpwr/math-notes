@@ -4,18 +4,33 @@ import { DataState } from "@/enums/DataState";
 import { LoadingSpinner } from "@/Components/LoadingSpinner/LoadingSpinner";
 import styles from './NotebookView.module.css';
 import { useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 
 
 export const NotebookView: React.FC = () => {
     const { data, state } = useGetNotebookData();
     const isLoading = state === DataState.Pending;
     const titleRef = useRef<HTMLDivElement | null>(null);
+    const [searchparams, setSearchParams] = useSearchParams();
+    const headersRef = useRef<Record<string, HTMLDivElement | null>>({});
+
 
     useEffect(() => {
-        titleRef.current?.scrollIntoView()
+        const scrollTo = searchparams.get('scroll');
+
+        if (scrollTo) {
+            const header = headersRef.current[scrollTo];
+            if (!header) {
+                console.warn(`Header with id ${scrollTo} not found`);
+                return;
+            }
+            header.scrollIntoView({ behavior: 'smooth' });
+            setSearchParams({});
+        } else {
+            titleRef.current?.scrollIntoView()
+        }
+
     }, [state])
-
-
 
 
     return (
@@ -29,6 +44,7 @@ export const NotebookView: React.FC = () => {
                             id={item.id}
                             title={item.title}
                             data={item.data}
+                            headersRef={headersRef}
                         />
                     ))}
                 </>}
