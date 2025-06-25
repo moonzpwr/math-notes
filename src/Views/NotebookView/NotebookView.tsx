@@ -21,10 +21,9 @@ export const NotebookView: React.FC = () => {
         if (scrollTo) {
             const header = headersRef.current[scrollTo];
             if (!header) {
-                console.warn(`Header with id ${scrollTo} not found`);
                 return;
             }
-            header.scrollIntoView({ behavior: 'smooth' });
+            header?.scrollIntoView({ behavior: 'smooth' });
             setSearchParams({});
         } else {
             titleRef.current?.scrollIntoView()

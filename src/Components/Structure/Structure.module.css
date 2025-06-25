@@ -1,8 +1,17 @@
 .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: rgba(0, 0, 0, 0.192);
     height: 100vh;
     width: 100%;
     padding-top: 20px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.welcomeBlock {
+    display: flex;
+    align-items: center;
+    padding: 20px;
 }

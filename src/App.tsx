@@ -1,11 +1,11 @@
 import { MathJaxContext } from "better-react-mathjax"
-import { HomeView } from "./Views/HomeView/HomeView"
+import { AppRoutes } from "./Router/routes"
 
-
+//TODO Add Error Boundary
 function App() {
   return (
     <MathJaxContext>
-      <HomeView />
+      <AppRoutes />
     </MathJaxContext>
   )
 }
