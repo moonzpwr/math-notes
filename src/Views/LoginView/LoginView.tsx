@@ -1,6 +1,6 @@
 import { Paths } from "@/enums/Paths"
 import { useAuth } from "@/hooks/useAuth"
-import { Auth } from "@/Store/Auth.store"
+import { AuthStore } from "@/Store/Auth.store"
 import { Button, Paper, TextField } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useEffect, useState } from "react"
@@ -11,7 +11,7 @@ import type { ICredentials } from "@/interfaces/ICredentials"
 export const LoginView: React.FC = observer(() => {
     const navigate = useNavigate();
     const currentUser = useAuth();
-    const { login } = Auth
+    const { login } = AuthStore;
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 

@@ -2,7 +2,7 @@
 import { Paths } from "@/enums/Paths";
 import { useAuth } from "@/hooks/useAuth";
 import type { IRegistrationCredentials } from "@/interfaces/ICredentials";
-import { Auth } from "@/Store/Auth.store";
+import { AuthStore } from "@/Store/Auth.store";
 import { Button, Paper, TextField } from "@mui/material"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import styles from "./RegistrationView.module.css";
 export const RegistrationView: React.FC = () => {
     const navigate = useNavigate();
     const currentUser = useAuth();
-    const { registration } = Auth
+    const { registration } = AuthStore;
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');

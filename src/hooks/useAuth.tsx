@@ -1,8 +1,8 @@
-import { Auth } from "@/Store/Auth.store";
+import { AuthStore } from "@/Store/Auth.store";
 import { useEffect } from "react";
 
 export const useAuth = () => {
-    const { username, getCurrentUser } = Auth;
+    const { username, getCurrentUser } = AuthStore;
 
     useEffect(() => {
         if (!username) {

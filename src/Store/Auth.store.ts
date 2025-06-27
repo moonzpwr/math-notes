@@ -3,7 +3,7 @@ import { LOCAL_STORAGE_AUTH_TOKEN_KEY } from "@/helpers/constants"
 import type { ICredentials } from "@/interfaces/ICredentials"
 import { makeAutoObservable } from "mobx"
 
-class AuthStore {
+class Auth {
     username: string | null = null
 
     //TODO: Add loading state and error handling
@@ -40,4 +40,4 @@ class AuthStore {
 
 }
 
-export const Auth = new AuthStore();
+export const AuthStore = new Auth();
