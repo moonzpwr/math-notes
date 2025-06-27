@@ -10,7 +10,13 @@ export const postRegistration = (payload: ICredentials) => fetch(`${BASE_URL}/re
         username: payload.username,
         password: payload.password,
     }),
-}).then(res => res.json())
+}).then(async res => {
+    const data = await res.json();
+    if (!res.ok) {
+        throw new Error(data?.error || 'Registration failed');
+    }
+    return data;
+});
 
 export const postLogin = (payload: ICredentials) => fetch(`${BASE_URL}/login`, {
     method: 'POST',
@@ -19,8 +25,21 @@ export const postLogin = (payload: ICredentials) => fetch(`${BASE_URL}/login`, {
         username: payload.username,
         password: payload.password,
     }),
-}).then(res => res.json())
+}).then(async res => {
+    const data = await res.json();
+    if (!res.ok) {
+        throw new Error(data?.error || 'Login failed');
+    }
+    return data;
+});
+
 
 export const fetchCurrentUser = () => httpClient(`${BASE_URL}/currentUser`, {
     method: 'GET',
-}).then(res => res.json())
+}).then(async res => {
+    const data = await res.json();
+    if (!res.ok) {
+        throw new Error(data?.error || 'Login failed');
+    }
+    return data;
+});

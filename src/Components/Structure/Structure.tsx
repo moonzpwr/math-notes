@@ -4,7 +4,7 @@ import { StructureItem } from "../StructureItem/StructureItem";
 import styles from "./Structure.module.css";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@mui/material";
-import { AuthStore } from "@/Store/Auth.store";
+import { authStore } from "@/Store/Auth.store";
 import { Paths } from "@/enums/Paths";
 import { useNavigate } from "react-router-dom";
 import { notificationsStore } from "@/Store/Notifications.store";
@@ -12,7 +12,7 @@ import { notificationsStore } from "@/Store/Notifications.store";
 const Structure: React.FC = () => {
     const { structure, setStructure } = useGetStructure()
     const currentUser = useAuth();
-    const { logout } = AuthStore;
+    const { logout } = authStore;
     const navigate = useNavigate();
     const { showNotification } = notificationsStore;
 

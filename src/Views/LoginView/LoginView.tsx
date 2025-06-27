@@ -1,17 +1,19 @@
 import { Paths } from "@/enums/Paths"
 import { useAuth } from "@/hooks/useAuth"
-import { AuthStore } from "@/Store/Auth.store"
+import { authStore } from "@/Store/Auth.store"
 import { Button, Paper, TextField } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./LoginView.module.css"
 import type { ICredentials } from "@/interfaces/ICredentials"
+import { DataState } from "@/enums/DataState"
 
 export const LoginView: React.FC = observer(() => {
     const navigate = useNavigate();
     const currentUser = useAuth();
-    const { login } = AuthStore;
+    const { login, userState } = authStore;
+    const isLoading = userState === DataState.Pending;
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
@@ -21,7 +23,6 @@ export const LoginView: React.FC = observer(() => {
             login({ username, password });
         }
         return;
-        //TODO: handle error
     }
 
     useEffect(() => {
@@ -50,7 +51,7 @@ export const LoginView: React.FC = observer(() => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button variant="contained" onClick={() => handleLogin({ username, password })}>Login</Button>
+                <Button variant="contained" onClick={() => handleLogin({ username, password })} loading={isLoading}>Login</Button>
                 Don't have an account?{" "}
                 <Button variant="text" onClick={() => navigate(Paths.Registration)}>Register</Button>
             </Paper>

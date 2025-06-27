@@ -2,17 +2,19 @@
 import { Paths } from "@/enums/Paths";
 import { useAuth } from "@/hooks/useAuth";
 import type { IRegistrationCredentials } from "@/interfaces/ICredentials";
-import { AuthStore } from "@/Store/Auth.store";
+import { authStore } from "@/Store/Auth.store";
 import { Button, Paper, TextField } from "@mui/material"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationView.module.css";
+import { DataState } from "@/enums/DataState";
 
 
 export const RegistrationView: React.FC = () => {
     const navigate = useNavigate();
     const currentUser = useAuth();
-    const { registration } = AuthStore;
+    const { registration, registrationState } = authStore;
+    const isLoading = registrationState === DataState.Pending;
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -22,7 +24,6 @@ export const RegistrationView: React.FC = () => {
             registration({ username, password });
         }
         return;
-        //TODO: handle error
     }
 
     useEffect(() => {
@@ -63,6 +64,7 @@ export const RegistrationView: React.FC = () => {
                 <Button
                     variant="contained"
                     onClick={() => handleRegistration({ username, password, confirmPassword })}
+                    loading={isLoading}
                 >
                     Registration
                 </Button>

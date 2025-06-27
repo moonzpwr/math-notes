@@ -1,11 +1,14 @@
 import { MathJaxContext } from "better-react-mathjax"
 import { AppRoutes } from "./Router/routes"
+import { ErrorBoundary } from "./Components/ErrorBoundary/ErrorBoundary"
+import { ErrorView } from "./Views/ErrorView/ErrorView"
 
-//TODO Add Error Boundary
 function App() {
   return (
     <MathJaxContext>
-      <AppRoutes />
+      <ErrorBoundary fallback={<ErrorView />}>
+        <AppRoutes />
+      </ErrorBoundary>
     </MathJaxContext>
   )
 }
