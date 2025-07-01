@@ -3,27 +3,28 @@ import { useAuth } from "@/hooks/useAuth"
 import { authStore } from "@/Store/Auth.store"
 import { Button, Paper, TextField } from "@mui/material"
 import { observer } from "mobx-react-lite"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./LoginView.module.css"
-import type { ICredentials } from "@/interfaces/ICredentials"
 import { DataState } from "@/enums/DataState"
+import { useFormik } from 'formik';
+import { authValidationSchema } from '@/helpers/validation';
+
+
+
 
 export const LoginView: React.FC = observer(() => {
     const navigate = useNavigate();
     const currentUser = useAuth();
     const { login, userState } = authStore;
     const isLoading = userState === DataState.Pending;
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-
-
-    const handleLogin = ({ username, password }: ICredentials) => {
-        if (username && password) {
-            login({ username, password });
-        }
-        return;
-    }
+    const { touched, values, handleChange, handleBlur, errors } = useFormik({
+        initialValues: { username: '', password: '' },
+        validationSchema: authValidationSchema,
+        onSubmit: (values) => {
+            login(values);
+        },
+    });
 
     useEffect(() => {
         if (currentUser) {
@@ -37,21 +38,42 @@ export const LoginView: React.FC = observer(() => {
                 <h1>Please login!</h1>
                 <TextField
                     id="username"
-                    label="Username"
                     variant="outlined"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    label="Username"
+                    name="username"
+                    value={values.username}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.username && Boolean(errors.username)}
+                    helperText={touched.username && errors.username}
+                    fullWidth
                 />
-                {/* TODO: Add validation */}
                 <TextField
                     id="password"
                     label="Password"
                     variant="outlined"
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={touched.password && errors.password}
+                    fullWidth
                 />
-                <Button variant="contained" onClick={() => handleLogin({ username, password })} loading={isLoading}>Login</Button>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    loading={isLoading}
+                    disabled={Boolean(
+                        values.password === '' ||
+                        values.username === '' ||
+                        errors.password ||
+                        errors.username)
+                    }
+                >
+                    Login
+                </Button>
                 Don't have an account?{" "}
                 <Button variant="text" onClick={() => navigate(Paths.Registration)}>Register</Button>
             </Paper>

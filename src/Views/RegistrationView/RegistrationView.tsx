@@ -1,13 +1,14 @@
 
 import { Paths } from "@/enums/Paths";
 import { useAuth } from "@/hooks/useAuth";
-import type { IRegistrationCredentials } from "@/interfaces/ICredentials";
 import { authStore } from "@/Store/Auth.store";
 import { Button, Paper, TextField } from "@mui/material"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationView.module.css";
 import { DataState } from "@/enums/DataState";
+import { useFormik } from "formik";
+import { authValidationSchema } from "@/helpers/validation";
 
 
 export const RegistrationView: React.FC = () => {
@@ -15,16 +16,20 @@ export const RegistrationView: React.FC = () => {
     const currentUser = useAuth();
     const { registration, registrationState } = authStore;
     const isLoading = registrationState === DataState.Pending;
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [confirmPassword, setConfirmPassword] = useState<string>('');
 
-    const handleRegistration = ({ username, password, confirmPassword }: IRegistrationCredentials) => {
-        if (username && password && confirmPassword && password === confirmPassword) {
-            registration({ username, password });
-        }
-        return;
-    }
+    const { touched, values, handleChange, handleBlur, errors } = useFormik({
+        initialValues: { username: '', password: '', confirmPassword: '' },
+        validationSchema: authValidationSchema,
+        onSubmit: ({ username, password }) => {
+            try {
+                registration({ username, password });
+                navigate(Paths.Login);
+            } catch (error) {
+                return;
+            }
+        },
+    });
+
 
     useEffect(() => {
         if (currentUser) {
@@ -39,32 +44,54 @@ export const RegistrationView: React.FC = () => {
                 <h1>Please enter registration data!</h1>
                 <TextField
                     id="username"
-                    label="Username"
                     variant="outlined"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    label="Username"
+                    name="username"
+                    value={values.username}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.username && Boolean(errors.username)}
+                    helperText={touched.username && errors.username}
+                    fullWidth
                 />
                 <TextField
                     id="password"
                     label="Password"
                     variant="outlined"
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={touched.password && errors.password}
+                    fullWidth
                 />
                 <TextField
-                    id="password"
+                    id="confirmPassword"
                     label="Confirm password"
                     variant="outlined"
                     type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    name="confirmPassword"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+                    helperText={touched.confirmPassword && errors.confirmPassword}
+                    fullWidth
                 />
-                {/* TODO: Add validation */}
                 <Button
                     variant="contained"
-                    onClick={() => handleRegistration({ username, password, confirmPassword })}
+                    type="submit"
                     loading={isLoading}
+                    disabled={Boolean(
+                        values.password === '' ||
+                        values.username === '' ||
+                        values.confirmPassword === "" ||
+                        errors.password ||
+                        errors.username ||
+                        errors.confirmPassword
+                    )}
                 >
                     Registration
                 </Button>

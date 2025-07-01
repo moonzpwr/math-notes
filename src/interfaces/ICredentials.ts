@@ -5,4 +5,4 @@ export interface ICredentials {
 
 export interface IRegistrationCredentials extends ICredentials {
     confirmPassword: string;
-}
+} //TODO: no need????
