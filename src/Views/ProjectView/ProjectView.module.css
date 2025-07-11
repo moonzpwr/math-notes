@@ -1,25 +1,25 @@
 .wrapper {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
+	display: flex;
+	height: 100vh;
+	overflow: hidden;
 }
 
 .leftBlock {
-    position: relative;
-    flex-shrink: 0;
-    height: 100vh;
-    overflow-x: hidden;
+	position: relative;
+	flex-shrink: 0;
+	height: 100vh;
+	overflow-x: hidden;
 }
 
 .rightBlock {
-    position: relative;
-    flex-grow: 1;
-    height: 100vh;
-    overflow-y: auto;
+	position: relative;
+	flex-grow: 1;
+	height: 100vh;
+	overflow-y: auto;
 }
 
 .backdrop {
-    filter: blur(2px);
-    background-color: #555555;
-    user-select: none;
+	filter: blur(2px);
+	background-color: #555555;
+	user-select: none;
 }

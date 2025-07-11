@@ -1,4 +1,4 @@
 export enum Permissions {
-    ReadWrite = "read-write",
-    ReadOnly = "read-only"
+	ReadWrite = 'read-write',
+	ReadOnly = 'read-only',
 }

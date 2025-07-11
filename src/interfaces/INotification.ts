@@ -1,5 +1,5 @@
 export interface INotifications {
-    message: string;
-    id: string;
-    isMarkedForDeletion: boolean;
+	message: string;
+	id: string;
+	isMarkedForDeletion: boolean;
 }

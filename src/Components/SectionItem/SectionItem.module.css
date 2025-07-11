@@ -1,22 +1,22 @@
 .container {
-    position: relative;
-    padding: 20px 20px 20px 40px;
+	position: relative;
+	padding: 20px 20px 20px 40px;
 }
 
 .container::before {
-    content: '';
-    position: absolute;
-    top: 55px;
-    left: 55px;
-    width: 1px;
-    height: calc(100% - 36px);
-    background-color: gray;
+	content: '';
+	position: absolute;
+	top: 55px;
+	left: 55px;
+	width: 1px;
+	height: calc(100% - 36px);
+	background-color: gray;
 }
 
 .title {
-    font-weight: 600;
-    font-size: 24px;
-    background-color: #f9f9f9;
-    z-index: 10;
-    padding: 8px 16px;
+	font-weight: 600;
+	font-size: 24px;
+	background-color: #f9f9f9;
+	z-index: 10;
+	padding: 8px 16px;
 }

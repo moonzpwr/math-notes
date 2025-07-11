@@ -1,35 +1,37 @@
 .root {
-    padding: 12px 24px;
-    box-shadow: 0px 3px 5px -1px rgb(0 0 0/ 60%);
-    border-radius: 4px;
-    background-color: brown;
-    color: white;
-    overflow: hidden;
-    z-index: 1000;
-    white-space: pre-line;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(48px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+	padding: 12px 24px;
+	box-shadow: 0px 3px 5px -1px rgb(0 0 0/ 60%);
+	border-radius: 4px;
+	background-color: brown;
+	color: white;
+	overflow: hidden;
+	z-index: 1000;
+	white-space: pre-line;
+	text-align: center;
+	opacity: 0;
+	transform: translateY(48px);
+	transition:
+		opacity 0.2s ease,
+		transform 0.2s ease;
 }
 
 .intro {
-    opacity: 1;
-    transform: translateY(0);
+	opacity: 1;
+	transform: translateY(0);
 }
 
 .outro {
-    animation: fadeAway 0.25s linear;
+	animation: fadeAway 0.25s linear;
 }
 
 @keyframes fadeAway {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
 
-    to {
-        opacity: 0;
-        transform: translateY(24px);
-    }
+	to {
+		opacity: 0;
+		transform: translateY(24px);
+	}
 }

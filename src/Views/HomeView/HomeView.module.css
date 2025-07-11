@@ -1,14 +1,13 @@
 .root {
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 70px);
+	display: flex;
+	width: 100%;
+	height: calc(100vh - 70px);
 }
 
-
 .spinnerHolder {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

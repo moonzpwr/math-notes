@@ -1,15 +1,15 @@
 .splitter {
-    width: 5px;
-    height: 100vh;
-    cursor: ew-resize;
-    background-color: gray;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
+	width: 5px;
+	height: 100vh;
+	cursor: ew-resize;
+	background-color: gray;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
 }
 
 .active {
-    background-color: darkgray;
+	background-color: darkgray;
 }

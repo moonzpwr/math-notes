@@ -1,6 +1,6 @@
 export enum Paths {
-    Home = "/",
-    Login = "/login",
-    Project = '/project',
-    Registration = "/registration",
+	Home = '/',
+	Login = '/login',
+	Project = '/project',
+	Registration = '/registration',
 }

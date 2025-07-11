@@ -1,7 +1,7 @@
 export interface INotebookData {
-    id: string;
-    title?: string;
-    type: string;
-    data?: INotebookData[];
-    value?: string;
+	id: string;
+	title?: string;
+	type: string;
+	data?: INotebookData[];
+	value?: string;
 }
