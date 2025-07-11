@@ -1,7 +1,7 @@
 import { fetchCurrentUser, postLogin, postRegistration } from "@/api/auth";
 import { LOCAL_STORAGE_AUTH_TOKEN_KEY } from "@/helpers/constants";
 import type { ICredentials } from "@/interfaces/ICredentials";
-import { makeAutoObservable } from "mobx";
+import { action, makeAutoObservable } from "mobx";
 import { notificationsStore } from "@/Store/Notifications.store";
 import { DataState } from "@/enums/DataState";
 
@@ -13,54 +13,65 @@ class AuthStore {
     registrationState: DataState = DataState.Idle;
 
     constructor() {
-        makeAutoObservable(this)
-    }
+        makeAutoObservable(this, {}, { autoBind: true });
+    };
 
     setUsername(username: string | null) {
-        this.username = username
-    }
+        this.username = username;
+    };
 
-    registration = async ({ username, password }: ICredentials) => {
-        this.registrationState = DataState.Pending;
+    setUserState(userState: DataState) {
+        this.userState = userState;
+    };
+
+    setRegistrationState(registrationState: DataState) {
+        this.registrationState = registrationState;
+    };
+
+    async registration({ username, password }: ICredentials): Promise<void> {
+        this.setRegistrationState(DataState.Pending);
+
         try {
             await postRegistration({ username, password });
-            this.registrationState = DataState.Fulfilled;
+            this.setRegistrationState(DataState.Fulfilled);
             showNotification(`Registration successful! Please login!`);
         } catch (error: any) {
-            this.registrationState = DataState.Rejected;
-            showNotification(`There was a problem with the login: ${error.message}`);
+            this.setRegistrationState(DataState.Rejected);
+
+            showNotification(`There was a problem with the registration: ${error.message}`);
         }
     }
 
-    login = async ({ username, password }: ICredentials) => {
-        this.userState = DataState.Pending;
+
+    async login({ username, password }: ICredentials): Promise<void> {
+        this.setUserState(DataState.Pending);
+
         try {
             const resp = await postLogin({ username, password });
             this.setUsername(resp.username);
+            this.setUserState(DataState.Fulfilled);
             localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN_KEY, resp.token);
-            this.userState = DataState.Fulfilled;
             showNotification(`Login successful! Welcome, ${resp.username}!`);
         } catch (error: any) {
-            this.userState = DataState.Rejected;
+            this.setUserState(DataState.Rejected);
             showNotification(`There was a problem with the login: ${error.message}`);
         }
-    };
-
-    logout = () => {
-        this.setUsername(null)
-        localStorage.removeItem(LOCAL_STORAGE_AUTH_TOKEN_KEY);
-        this.userState = DataState.Idle;
     }
 
-    getCurrentUser = async () => {
-        this.userState = DataState.Pending;
+    logout(): void {
+        this.setUsername(null);
+        this.setUserState(DataState.Idle);
+        localStorage.removeItem(LOCAL_STORAGE_AUTH_TOKEN_KEY);
+    }
+
+    getCurrentUser = async (): Promise<void> => {
+        this.setUserState(DataState.Pending);
         try {
             const resp = await fetchCurrentUser();
             this.setUsername(resp.username);
-            this.userState = DataState.Fulfilled;
+            this.setUserState(DataState.Fulfilled);
         } catch (error) {
-            this.userState = DataState.Rejected;
-            console.log(error)//TODO: DO we need this handler????
+            this.setUserState(DataState.Rejected);
         }
     }
 

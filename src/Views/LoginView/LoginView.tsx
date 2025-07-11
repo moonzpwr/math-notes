@@ -1,7 +1,7 @@
 import { Paths } from "@/enums/Paths"
 import { useAuth } from "@/hooks/useAuth"
 import { authStore } from "@/Store/Auth.store"
-import { Button, Paper, TextField } from "@mui/material"
+import { Box, Button, Paper, TextField } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
@@ -18,7 +18,7 @@ export const LoginView: React.FC = observer(() => {
     const currentUser = useAuth();
     const { login, userState } = authStore;
     const isLoading = userState === DataState.Pending;
-    const { touched, values, handleChange, handleBlur, errors } = useFormik({
+    const { touched, values, handleChange, handleBlur, errors, handleSubmit } = useFormik({
         initialValues: { username: '', password: '' },
         validationSchema: authValidationSchema,
         onSubmit: (values) => {
@@ -33,7 +33,7 @@ export const LoginView: React.FC = observer(() => {
     }, [currentUser]);
 
     return (
-        <div className={styles.container}>
+        <Box component="form" onSubmit={handleSubmit} className={styles.container}>
             <Paper elevation={3} className={styles.paper}>
                 <h1>Please login!</h1>
                 <TextField
@@ -77,6 +77,6 @@ export const LoginView: React.FC = observer(() => {
                 Don't have an account?{" "}
                 <Button variant="text" onClick={() => navigate(Paths.Registration)}>Register</Button>
             </Paper>
-        </div>
+        </Box>
     )
 })

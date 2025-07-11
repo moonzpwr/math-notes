@@ -2,7 +2,7 @@
 import { Paths } from "@/enums/Paths";
 import { useAuth } from "@/hooks/useAuth";
 import { authStore } from "@/Store/Auth.store";
-import { Button, Paper, TextField } from "@mui/material"
+import { Box, Button, Paper, TextField } from "@mui/material"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationView.module.css";
@@ -17,7 +17,7 @@ export const RegistrationView: React.FC = () => {
     const { registration, registrationState } = authStore;
     const isLoading = registrationState === DataState.Pending;
 
-    const { touched, values, handleChange, handleBlur, errors } = useFormik({
+    const { touched, values, handleChange, handleBlur, errors, handleSubmit } = useFormik({
         initialValues: { username: '', password: '', confirmPassword: '' },
         validationSchema: authValidationSchema,
         onSubmit: ({ username, password }) => {
@@ -39,7 +39,7 @@ export const RegistrationView: React.FC = () => {
 
 
     return (
-        <div className={styles.container}>
+        <Box component="form" onSubmit={handleSubmit} className={styles.container}>
             <Paper elevation={3} className={styles.paper}>
                 <h1>Please enter registration data!</h1>
                 <TextField
@@ -98,6 +98,6 @@ export const RegistrationView: React.FC = () => {
                 Already have an account?{" "}
                 <Button variant="text" onClick={() => navigate(Paths.Login)}>Login</Button>
             </Paper>
-        </div>
+        </Box>
     )
 }

@@ -32,6 +32,9 @@ html {
 body {
   margin: 0;
   font-family: 'EB Garamond', sans-serif;
+  background: url(./images/bg.jpg), linear-gradient(90deg, rgba(123, 123, 123, 0.50) 0%, rgba(123, 123, 123, 0.50) 100%);
+  backdrop-filter: blur(4px);
+  background-size: cover;
 }
 
 /**

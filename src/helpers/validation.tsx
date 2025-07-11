@@ -16,6 +16,7 @@ export const authValidationSchema = Yup.object({
         .matches(/[A-Z]/, 'Must contain at least one capital letter')
         .matches(/[a-z]/, 'Must contain at least one lowercase letter')
         .matches(/[0-9]/, 'Must contain at least one digit')
+        .matches(/[!@#$%^&*.,/\\]/, 'Must contain at least one special character')
         .matches(PASSWORD_REGEX, 'Invalid characters')
         .required('Required'),
 

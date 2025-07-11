@@ -49,7 +49,6 @@ const Structure: React.FC = () => {
             </div>
             <div className={styles.welcomeBlock}>Welcome {currentUser}! <Button variant="text" onClick={handleLogout}>Logout</Button></div>
             <Button onClick={() => showNotification('Hello')}>Say Hi!</Button>
-            <Button onClick={() => navigate('editor')}>EDITOR</Button>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import { getStructure } from "@/api/notes";
-import { formatStructureData } from "@/helpers/formatStructureData";
+import { formatStructureData } from "@/helpers/dataFormatting";
 import type { IStructureItem } from "@/interfaces/IStructureItem";
 import { notificationsStore } from "@/Store/Notifications.store";
 import { useEffect, useState } from "react";
