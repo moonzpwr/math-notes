@@ -1,5 +1,7 @@
 import type { IStructureItem } from '@/interfaces/IStructureItem';
 import type { IProjectsDataItem, IProjectsDataItemRaw } from '@/interfaces/IProjectsDataItem';
+import type { IUserDataRaw } from '@/interfaces/IUserDataRaw';
+import type { IUserData } from '@/interfaces/IUserData';
 
 export const formatStructureData = (data: IStructureItem[]): IStructureItem[] => {
 	return data.map((item) => ({
@@ -16,4 +18,12 @@ export const formatProjectsData = (data: IProjectsDataItemRaw[]): IProjectsDataI
 		id: project.project_id,
 		name: project.project_name,
 	}));
+};
+
+export const formatUserData = (data: IUserDataRaw): IUserData => {
+	return {
+		username: data.user_info.username,
+		role: data.user_info.role,
+		token: data.token,
+	};
 };

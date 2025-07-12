@@ -6,8 +6,11 @@ import { observer } from 'mobx-react-lite';
 import { type FC } from 'react';
 import styles from './HomeView.module.css';
 import { ErrorView } from '../ErrorView/ErrorView';
+import { useNavigate } from 'react-router-dom';
+import { Paths } from '@/enums/Paths';
 
 export const HomeView: FC = observer(() => {
+	const navigate = useNavigate();
 	const { data, state } = useGetProjectsData();
 	const isLoading = state === DataState.Pending;
 	const isFailed = state === DataState.Rejected;
@@ -23,9 +26,9 @@ export const HomeView: FC = observer(() => {
 			) : (
 				data &&
 				data.map((project) => (
-					<Card key={project.id}>
+					<Card key={project.id} className={styles.card}>
 						<CardActionArea
-							onClick={() => {}}
+							onClick={() => navigate(`${Paths.Project}/${project.id}`)}
 							sx={{
 								height: '100%',
 								'&[data-active]': {

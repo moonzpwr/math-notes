@@ -22,7 +22,6 @@ export const StructureItem: React.FC<Props> = ({ item, onToggleExpand }) => {
 	const handleItemClick = (event: SyntheticEvent) => {
 		event.stopPropagation();
 		if (type === StructureTypes.Notebook) {
-			console.log('Navigate to notebook with id:', id);
 			navigate(id);
 		} else {
 			onToggleExpand(id);

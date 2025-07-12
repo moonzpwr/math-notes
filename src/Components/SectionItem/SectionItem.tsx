@@ -25,11 +25,11 @@ export const SectionItem: React.FC<Props> = ({ title, data, id, headersRef }) =>
 			<div>
 				{data?.map((item, i) => {
 					if (item.type === StructureTypes.RichParagraph) {
-						return <RichParagraph key={i} content={item.value} />;
+						return <RichParagraph key={i} content={item.htm} />;
 					} else {
 						return (
-							item.data && (
-								<SectionItem key={item.id} id={item.id} title={item.title} data={item.data} headersRef={headersRef} />
+							item.items && (
+								<SectionItem key={item.id} id={item.id} title={item.title} data={item.items} headersRef={headersRef} />
 							)
 						);
 					}

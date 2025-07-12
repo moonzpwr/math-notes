@@ -9,9 +9,3 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 }
-
-.welcomeBlock {
-	display: flex;
-	align-items: center;
-	padding: 20px;
-}

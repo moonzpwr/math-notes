@@ -15,8 +15,10 @@ export const AppRoutes: React.FC = () => {
 		<Routes>
 			<Route element={<DefaultWrapper />}>
 				<Route element={<AuthProtectedRoute />}>
-					<Route path={Project} element={<ProjectView />}>
-						<Route path=':notebookId' element={<ProjectView />} />
+					<Route path={Project}>
+						<Route path=':projectId' element={<ProjectView />}>
+							<Route path=':notebookId' element={<ProjectView />} />
+						</Route>
 					</Route>
 					{/* TODO: Add protected route by role 'admin' for editor */}
 					<Route path='editor' element={<CustomEditor />} />

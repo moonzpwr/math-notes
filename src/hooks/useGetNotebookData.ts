@@ -14,10 +14,11 @@ export const useGetNotebookData = (): IAsyncData<INotebookData> => {
 	});
 
 	useEffect(() => {
-		const id = pathname.split('/')[1];
-		if (id) {
+		const projectId = pathname.split('/')[2];
+		const notebookId = pathname.split('/')[3];
+		if (projectId && notebookId) {
 			setNotebookData({ data: null, state: DataState.Pending, error: null });
-			getNotebookData(id)
+			getNotebookData(projectId, notebookId)
 				.then((data) => {
 					setNotebookData({ data: data, state: DataState.Fulfilled, error: null });
 				})

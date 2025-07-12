@@ -4,6 +4,7 @@ import type { ICredentials } from '@/interfaces/ICredentials';
 import { action, makeAutoObservable } from 'mobx';
 import { notificationsStore } from '@/Store/Notifications.store';
 import { DataState } from '@/enums/DataState';
+import { formatUserData } from '@/helpers/dataFormatting';
 
 const { showNotification } = notificationsStore;
 
@@ -46,7 +47,8 @@ class AuthStore {
 		this.setUserState(DataState.Pending);
 
 		try {
-			const resp = await postLogin({ username, password });
+			const respRaw = await postLogin({ username, password });
+			const resp = formatUserData(respRaw);
 			this.setUsername(resp.username);
 			this.setUserState(DataState.Fulfilled);
 			localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN_KEY, resp.token);

@@ -39,10 +39,10 @@ export const NotebookView: React.FC = () => {
 					<h1 style={{ textAlign: 'center' }} ref={titleRef}>
 						{data?.title}
 					</h1>
-					{data?.data?.map(
+					{data?.items?.map(
 						(item) =>
-							item.data && (
-								<SectionItem key={item.id} id={item.id} title={item.title} data={item.data} headersRef={headersRef} />
+							item.items && (
+								<SectionItem key={item.id} id={item.id} title={item.title} data={item.items} headersRef={headersRef} />
 							)
 					)}
 				</>
