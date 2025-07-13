@@ -1,31 +1,37 @@
 import { LoadingSpinner } from '@/Components/LoadingSpinner/LoadingSpinner';
 import { DataState } from '@/enums/DataState';
-import { useGetProjectsData } from '@/hooks/useGetProjectsData';
 import { Box, Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import { type FC } from 'react';
+import { useEffect } from 'react';
 import styles from './HomeView.module.css';
 import { ErrorView } from '../ErrorView/ErrorView';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '@/enums/Paths';
+import { projectsStore } from '@/Store/Projects.store';
 
-export const HomeView: FC = observer(() => {
+export const HomeView: React.FC = observer(() => {
 	const navigate = useNavigate();
-	const { data, state } = useGetProjectsData();
-	const isLoading = state === DataState.Pending;
-	const isFailed = state === DataState.Rejected;
+	const { projects, getProjectsAsync } = projectsStore;
+	const isLoading = projects.state === DataState.Pending;
+	const isFailed = projects.state === DataState.Rejected;
+
+	useEffect(() => {
+		getProjectsAsync();
+	}, []);
 
 	return (
 		<Box className={styles.root}>
 			{isLoading ? (
-				<div className={styles.spinnerHolder}>
+				<div className={styles.holder}>
 					<LoadingSpinner />
 				</div>
 			) : isFailed ? (
-				<ErrorView />
+				<div className={styles.holder}>
+					<ErrorView />
+				</div>
 			) : (
-				data &&
-				data.map((project) => (
+				projects.data &&
+				projects.data.map((project) => (
 					<Card key={project.id} className={styles.card}>
 						<CardActionArea
 							onClick={() => navigate(`${Paths.Project}/${project.id}`)}

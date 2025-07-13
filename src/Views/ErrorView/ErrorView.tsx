@@ -1,7 +1,6 @@
-import type { FC } from 'react';
 import styles from './ErrorView.module.css';
 
-export const ErrorView: FC = () => {
+export const ErrorView: React.FC = () => {
 	return (
 		<div className={styles.root}>
 			<h1>Oops! Something went wrong 😢</h1>

@@ -17,7 +17,7 @@ interface Props {
 
 export const StructureItem: React.FC<Props> = ({ item, onToggleExpand }) => {
 	const { expanded, children, id, title, type } = item;
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const handleItemClick = (event: SyntheticEvent) => {
 		event.stopPropagation();
@@ -43,7 +43,7 @@ export const StructureItem: React.FC<Props> = ({ item, onToggleExpand }) => {
 			</div>
 			{expanded && children.length > 0 && (
 				<div>
-					{children.map((child: any) => (
+					{children.map((child: IStructureItem) => (
 						<StructureItem key={child.id} item={child} onToggleExpand={onToggleExpand} />
 					))}
 				</div>

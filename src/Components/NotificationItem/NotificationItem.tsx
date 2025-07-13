@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './NotificationItem.module.css';
 import classNames from 'classnames';
 import {
@@ -13,7 +13,7 @@ interface Props {
 	onFadeOutComplete: (id: string) => void;
 }
 
-export const NotificationItem: FC<Props> = ({ message, id, isMarkedForDeletion, onFadeOutComplete }) => {
+export const NotificationItem: React.FC<Props> = ({ message, id, isMarkedForDeletion, onFadeOutComplete }) => {
 	const [isIntroDone, setIsIntroDone] = useState(false);
 
 	useEffect(() => {

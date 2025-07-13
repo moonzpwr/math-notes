@@ -1,7 +1,7 @@
 .container {
 	padding: 20px;
 	background-color: #f9f9f9;
-	min-height: 100vh;
+	height: 100%;
 }
 
 .spinnerContainer {

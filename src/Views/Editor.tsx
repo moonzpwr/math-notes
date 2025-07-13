@@ -1,16 +1,15 @@
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { httpClient } from '@/helpers/httpClient';
 import { Button } from '@mui/material';
 
 const BASE_URL = import.meta.env.MATH_NOTES_BASE_URL;
 
-export const CustomEditor: FC = () => {
+export const CustomEditor: React.FC = () => {
 	const [code, setCode] = useState<string>('');
 
 	function handleEditorChange(value: string | undefined) {
 		if (!value) return;
-		console.log(value);
 		setCode(value);
 	}
 

@@ -5,16 +5,16 @@ import pluginReact from 'eslint-plugin-react';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
+	tseslint.configs.recommended,
+	pluginReact.configs.flat.recommended,
 	{
 		files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		plugins: { js },
-		extends: [
-			'js/recommended',
-			'eslint:recommended',
-			'plugin:@typescript-eslint/eslint-recommended',
-			'plugin:@typescript-eslint/recommended',
-		],
+		extends: ['js/recommended'],
 		rules: {
+			'react/react-in-jsx-scope': 'off',
+			'react/no-unescaped-entities': 'off',
+			'react/prop-types': 'off',
 			'comma-dangle': 0,
 			quotes: [
 				1,
@@ -23,7 +23,7 @@ export default defineConfig([
 					avoidEscape: true,
 				},
 			],
-			'no-undef': 2,
+			'no-undef': 'off',
 			'global-strict': 0,
 			'no-extra-semi': 1,
 			'no-underscore-dangle': 0,
@@ -44,6 +44,4 @@ export default defineConfig([
 		},
 	},
 	{ files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'], languageOptions: { globals: globals.browser } },
-	tseslint.configs.recommended,
-	pluginReact.configs.flat.recommended,
 ]);

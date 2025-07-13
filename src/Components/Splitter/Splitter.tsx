@@ -7,7 +7,7 @@ interface Props {
 	isDragging: boolean;
 }
 
-export const Splitter: React.FC<Props> = ({ id = 'drag-bar', isDragging, ...props }) => {
+export const Splitter: React.FC<Props> = ({ id = 'drag-bar', ...props }) => {
 	const [isFocused, setIsFocused] = useState(false);
 	return (
 		<div

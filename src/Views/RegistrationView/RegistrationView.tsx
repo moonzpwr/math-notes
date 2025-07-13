@@ -22,7 +22,7 @@ export const RegistrationView: React.FC = () => {
 			try {
 				registration({ username, password });
 				navigate(Paths.Login);
-			} catch (error) {
+			} catch {
 				return;
 			}
 		},

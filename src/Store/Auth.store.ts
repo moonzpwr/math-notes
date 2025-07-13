@@ -1,7 +1,7 @@
 import { fetchCurrentUser, postLogin, postRegistration } from '@/api/auth';
 import { LOCAL_STORAGE_AUTH_TOKEN_KEY } from '@/helpers/constants';
 import type { ICredentials } from '@/interfaces/ICredentials';
-import { action, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { notificationsStore } from '@/Store/Notifications.store';
 import { DataState } from '@/enums/DataState';
 import { formatUserData } from '@/helpers/dataFormatting';
@@ -35,11 +35,14 @@ class AuthStore {
 		try {
 			await postRegistration({ username, password });
 			this.setRegistrationState(DataState.Fulfilled);
-			showNotification(`Registration successful! Please login!`);
-		} catch (error: any) {
+			showNotification('Registration successful! Please login!');
+		} catch (error: unknown) {
 			this.setRegistrationState(DataState.Rejected);
-
-			showNotification(`There was a problem with the registration: ${error.message}`);
+			if (error instanceof Error) {
+				showNotification(`There was a problem with the registration: ${error.message}`);
+			} else {
+				showNotification(`An unknown error occurred: ${error}`);
+			}
 		}
 	}
 
@@ -53,9 +56,13 @@ class AuthStore {
 			this.setUserState(DataState.Fulfilled);
 			localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN_KEY, resp.token);
 			showNotification(`Login successful! Welcome, ${resp.username}!`);
-		} catch (error: any) {
+		} catch (error: unknown) {
 			this.setUserState(DataState.Rejected);
-			showNotification(`There was a problem with the login: ${error.message}`);
+			if (error instanceof Error) {
+				showNotification(`There was a problem with the login: ${error.message}`);
+			} else {
+				showNotification(`An unknown error occurred: ${error}`);
+			}
 		}
 	}
 
@@ -71,7 +78,7 @@ class AuthStore {
 			const resp = await fetchCurrentUser();
 			this.setUsername(resp.username);
 			this.setUserState(DataState.Fulfilled);
-		} catch (error) {
+		} catch {
 			this.setUserState(DataState.Rejected);
 		}
 	};

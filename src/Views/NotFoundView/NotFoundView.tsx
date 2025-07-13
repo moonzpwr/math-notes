@@ -1,10 +1,9 @@
-import { type FC } from 'react';
 import styles from './NotFoundView.module.css';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '@/enums/Paths';
 
-export const NotFoundView: FC = () => {
+export const NotFoundView: React.FC = () => {
 	const navigate = useNavigate();
 	return (
 		<div className={styles.root}>

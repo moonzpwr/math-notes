@@ -1,10 +1,9 @@
 import { notificationsStore } from '@/Store/Notifications.store';
 import { observer } from 'mobx-react-lite';
-import { type FC } from 'react';
 import styles from './Notifications.module.css';
 import { NotificationItem } from '../NotificationItem/NotificationItem';
 
-export const Notifications: FC = observer(() => {
+export const Notifications: React.FC = observer(() => {
 	const { notifications, removeNotification } = notificationsStore;
 
 	return (
