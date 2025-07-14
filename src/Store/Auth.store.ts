@@ -57,6 +57,7 @@ class AuthStore {
 			localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN_KEY, resp.token);
 			showNotification(`Login successful! Welcome, ${resp.username}!`);
 		} catch (error: unknown) {
+			//TODO ADD error code handling like 401 ect.
 			this.setUserState(DataState.Rejected);
 			if (error instanceof Error) {
 				showNotification(`There was a problem with the login: ${error.message}`);

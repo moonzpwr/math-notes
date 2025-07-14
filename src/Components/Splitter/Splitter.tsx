@@ -4,7 +4,6 @@ import styles from './Splitter.module.css';
 
 interface Props {
 	id?: string;
-	isDragging: boolean;
 }
 
 export const Splitter: React.FC<Props> = ({ id = 'drag-bar', ...props }) => {

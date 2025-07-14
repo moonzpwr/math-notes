@@ -18,7 +18,7 @@ export const ProjectView: React.FC = () => {
 			<div className={classNames(styles.leftBlock, { [styles.backdrop]: isDragging })} style={{ width: position }}>
 				<Structure />
 			</div>
-			<Splitter {...separatorProps} isDragging={isDragging} />
+			<Splitter {...separatorProps} />
 			<div className={classNames(styles.rightBlock, { [styles.backdrop]: isDragging })}>
 				<NotebookView />
 			</div>

@@ -12,6 +12,7 @@ export const postRegistration = (payload: ICredentials) =>
 			password: payload.password,
 		}),
 	}).then(async (res) => {
+		//TODO remove data because no json provided
 		const data = await res.json();
 		if (!res.ok) {
 			throw new Error(data?.error || 'Registration failed');
@@ -28,6 +29,7 @@ export const postLogin = (payload: ICredentials) =>
 			password: payload.password,
 		}),
 	}).then(async (res) => {
+		//TODO remove data because no json provided
 		const data = await res.json();
 		if (!res.ok) {
 			throw new Error(data?.error || 'Login failed');

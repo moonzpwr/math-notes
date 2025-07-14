@@ -1,10 +1,19 @@
-import { useGetStructure } from '@/hooks/useGetStructure';
 import type { IStructureItem } from '@/interfaces/IStructureItem';
 import { StructureItem } from '../StructureItem/StructureItem';
 import styles from './Structure.module.css';
+import { structureStore } from '@/Store/Structure.store';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const Structure: React.FC = () => {
-	const { structure, setStructure } = useGetStructure();
+const Structure: React.FC = observer(() => {
+	const { structure, setStructureData, getStructureAsync } = structureStore;
+	const { pathname } = useLocation();
+
+	useEffect(() => {
+		const id = pathname.split('/')[2];
+		getStructureAsync(id);
+	}, []);
 
 	const toggleExpand = (id: string) => {
 		const updateStructure = (structure: IStructureItem[]): IStructureItem[] => {
@@ -18,7 +27,7 @@ const Structure: React.FC = () => {
 				return item;
 			});
 		};
-		setStructure(updateStructure(structure));
+		setStructureData(updateStructure(structure));
 	};
 
 	return (
@@ -30,6 +39,6 @@ const Structure: React.FC = () => {
 			</div>
 		</div>
 	);
-};
+});
 
 export default Structure;

@@ -1,6 +1,6 @@
 .splitter {
 	width: 5px;
-	height: 100vh;
+	height: calc(100vh - 70px);
 	cursor: ew-resize;
 	background-color: gray;
 	flex-shrink: 0;
